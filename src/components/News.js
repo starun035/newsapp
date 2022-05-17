@@ -14,7 +14,7 @@ export class News extends React.Component {
   }
   async componentDidMount() {
     console.log('in cdm');
-    let url = 'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=3172980fe9dc4b1c9fe49206633d8b15';
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=3172980fe9dc4b1c9fe49206633d8b15&page=1&pageSize=${this.props.pageSize}`;
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log(parsedData);
@@ -25,7 +25,7 @@ export class News extends React.Component {
   }
   handleNextClick = async () => {
     console.log('next clicked');
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=3172980fe9dc4b1c9fe49206633d8b15&page=${this.state.page + 1}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=3172980fe9dc4b1c9fe49206633d8b15&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
     let data = await fetch(url);
     let parsedData = await data.json();
     this.setState({
@@ -35,7 +35,7 @@ export class News extends React.Component {
   }
   handlePreviousClick = async () => {
     console.log('prev clicked');
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=3172980fe9dc4b1c9fe49206633d8b15&page=${this.state.page - 1}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=3172980fe9dc4b1c9fe49206633d8b15&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
     let data = await fetch(url);
     let parsedData = await data.json();
     this.setState({
@@ -47,7 +47,7 @@ export class News extends React.Component {
     console.log('in render');
     return (
       <div className='container my-2'>
-        <h2>Top Headlines for the Day</h2>
+        <h2 className='text-center'>Top Headlines for the Day</h2>
         <div className='row my-2'>
           {this.state.articles.map((element)=> {
             return <div className='col md-3' key={element.url}>
