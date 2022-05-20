@@ -12,5 +12,4 @@ export class Loader extends React.Component {
         </div>
         );
     }
-    // checking manual upload
 }
