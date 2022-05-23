@@ -13,9 +13,10 @@ export class News extends React.Component {
       loading: true
     };
   }
-  async componentDidMount() {
+  async updateNews() {
     console.log('in cdm');
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=${this.state.API_KEY}&page=1&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=${this.state.API_KEY}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    this.setState({loading: true});
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log(parsedData);
@@ -25,29 +26,17 @@ export class News extends React.Component {
       loading: false
     });
   }
+
+  async componentDidMount() {
+    this.updateNews();
+  }
   handleNextClick = async () => {
-    console.log('next clicked');
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=${this.state.API_KEY}&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
-    this.setState({loading: true})
-    let data = await fetch(url);
-    let parsedData = await data.json();
-    this.setState({
-      articles: parsedData.articles,
-      page: this.state.page + 1,
-      loading: false
-    });
+    this.setState({page: this.state.page + 1});
+    this.updateNews();
   }
   handlePreviousClick = async () => {
-    console.log('prev clicked');
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=${this.state.API_KEY}&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
-    this.setState({loading: true})
-    let data = await fetch(url);
-    let parsedData = await data.json();
-    this.setState({
-      page: this.state.page - 1,
-      articles: parsedData.articles,
-      loading: false
-    });
+    this.setState({page: this.state.page - 1});
+    this.updateNews();
   }
   render() {
     console.log('in render');
