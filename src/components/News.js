@@ -10,7 +10,6 @@ export class News extends React.Component {
       API_KEY: '3172980fe9dc4b1c9fe49206633d8b15',
       articles: [],
       page: 1,
-      articlesOnPage: 20,
       loading: true
     };
   }
@@ -59,13 +58,13 @@ export class News extends React.Component {
         <div className='row my-2'>
           {!this.state.loading && this.state.articles.map((element)=> {
             return <div className='col md-3' key={element.url}>
-              <NewsItem title={element.title} description={element.description} imageUrl={element.urlToImage} newsUrl={element.url}/>
+              <NewsItem title={element.title} description={element.description} imageUrl={element.urlToImage} newsUrl={element.url} author={element.author} date={element.publishedAt} source={element.source.name} />
             </div>
           })}
         </div>
         <div className="container d-flex justify-content-between">
           <button disabled={this.state.page<=1} type="button" className="btn btn-dark" onClick={this.handlePreviousClick}>&larr; Previous</button>
-          <button disabled={Math.ceil(this.state.totalResults/this.state.articlesOnPage) <= this.state.page} type="button" className="btn btn-dark" onClick={this.handleNextClick}>Next &rarr; </button>
+          <button disabled={Math.ceil(this.state.totalResults/this.props.pageSize) <= this.state.page} type="button" className="btn btn-dark" onClick={this.handleNextClick}>Next &rarr; </button>
         </div>
 
       </div>
