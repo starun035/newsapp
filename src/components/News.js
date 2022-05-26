@@ -8,7 +8,6 @@ export class News extends React.Component {
     super();
     console.log('in constructor');
     this.state = {
-      API_KEY: '3172980fe9dc4b1c9fe49206633d8b15',
       articles: [],
       page: 1,
       loading: true,
@@ -16,8 +15,7 @@ export class News extends React.Component {
     };
   }
   async updateNews() {
-    console.log('in cdm');
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=${this.state.API_KEY}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -41,7 +39,7 @@ export class News extends React.Component {
 
   render() {
     return (
-      <div className='container my-2'>
+      <>
         <h2 className='text-center'>Top Headlines for the Day</h2>
         <InfiniteScroll
           dataLength={this.state.articles.length}
@@ -49,15 +47,17 @@ export class News extends React.Component {
           hasMore={this.state.articles.length < this.state.totalResults}
           loader={<Loader />}
         >
-          <div className='row my-2'>
-            {this.state.articles.map((element) => {
-              return <div className='col md-3' key={element.url}>
-                <NewsItem title={element.title} description={element.description} imageUrl={element.urlToImage} newsUrl={element.url} author={element.author} date={element.publishedAt} source={element.source.name} />
-              </div>
-            })}
+          <div className='container'>
+            <div className='row my-2'>
+              {this.state.articles.map((element) => {
+                return <div className='col md-3' key={element.url}>
+                  <NewsItem title={element.title} description={element.description} imageUrl={element.urlToImage} newsUrl={element.url} author={element.author} date={element.publishedAt} source={element.source.name} />
+                </div>
+              })}
+            </div>
           </div>
         </InfiniteScroll>
-      </div>
+      </>
     );
   }
 }
