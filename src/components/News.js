@@ -17,7 +17,7 @@ const News = (props) => {
     console.log(parsedData);
     setArticles(articles.concat(parsedData.articles));
     setTotalResults(parsedData.totalResults);
-    setPage(page + 1);
+    setPage(page + 1); // this is asynchronous
   }
 
   const fetchMoreData = async () => {
@@ -30,7 +30,7 @@ const News = (props) => {
 
   return (
     <>
-      <h2 className='text-center'>Top Headlines for the Day</h2>
+      <h2 className='text-center' style={{marginTop: '70px'}}>Top Headlines for the Day</h2>
       <InfiniteScroll
         dataLength={articles.length}
         next={fetchMoreData}
