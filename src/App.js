@@ -1,6 +1,6 @@
 import './App.css';
-import { Navbar } from './components/Navbar';
-import { News } from './components/News';
+import Navbar from './components/Navbar';
+import News from './components/News';
 import LoadingBar from 'react-top-loading-bar';
 import {
   BrowserRouter as Router,
