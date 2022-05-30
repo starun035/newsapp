@@ -14,7 +14,7 @@ function App() {
   return (
     <>
       <Router>
-      <Navbar />
+      <Navbar sticky='top' />
         <Routes>
           <Route exact path="/" element={<News key="/" apiKey={apiKey} pageSize={pageSize} category="" />} />
           <Route exact path="/business" element={<News key="business" apiKey={apiKey} pageSize={pageSize} category="business" />} />

@@ -17,10 +17,10 @@ const News = (props) => {
     console.log(parsedData);
     setArticles(articles.concat(parsedData.articles));
     setTotalResults(parsedData.totalResults);
+    setPage(page + 1);
   }
 
   const fetchMoreData = async () => {
-    setPage(page + 1);
     updateNews();
   }
 
